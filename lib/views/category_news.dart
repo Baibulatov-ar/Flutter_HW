@@ -14,7 +14,6 @@ class CategoryNews extends StatefulWidget {
 }
 
 class _CategoryNewsState extends State<CategoryNews> {
-
   late final List<ArticleModel> articles;
   bool _loading = true;
 
@@ -36,48 +35,53 @@ class _CategoryNewsState extends State<CategoryNews> {
   }
 
   @override
-  Widget build(BuildContext context)  => Scaffold(
-    appBar: AppBar(
-      title: const Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text("Main"),
-          Text("News", style: TextStyle(color: Colors.blue),)
-        ],
-      ),
-      actions: <Widget>[
-        Opacity(
-          opacity: 0,
-          child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Icon(Icons.save)),
-        )
-      ],
-      centerTitle: true,
-      elevation: 0.0,
-    ),
-    body: _loading ? Center(child: CircularProgressIndicator(),) :
-    SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.only(top: 16),
-              child: ListView.builder(
-                  itemCount: articles.length,
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemBuilder: (context, index) => BlogTile(
-                    imageUrl: articles[index].urlToImage,
-                    title: articles[index].title,
-                    desc: articles[index].description,
-                    url: articles[index].url,
-                  )
-              ),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Main"),
+              Text(
+                "News",
+                style: TextStyle(color: Colors.blue),
+              )
+            ],
+          ),
+          actions: <Widget>[
+            Opacity(
+              opacity: 0,
+              child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: const Icon(Icons.save)),
             )
           ],
+          centerTitle: true,
+          elevation: 0.0,
         ),
-      ),
-    ),
-  );
+        body: _loading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: ListView.builder(
+                            itemCount: articles.length,
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemBuilder: (context, index) => BlogTile(
+                                  imageUrl: articles[index].urlToImage,
+                                  title: articles[index].title,
+                                  desc: articles[index].description,
+                                  url: articles[index].url,
+                                )),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+      );
 }

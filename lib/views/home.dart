@@ -45,58 +45,60 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text("Main"),
-            Text("News", style: TextStyle(color: Colors.blue),)
+            Text(
+              "News",
+              style: TextStyle(color: Colors.blue),
+            )
           ],
         ),
         centerTitle: true,
         elevation: 0.0,
       ),
-      body: _loading ? Center(child: CircularProgressIndicator(),) :
-      SingleChildScrollView(
-        child: Container (
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-              children: <Widget>[
+      body: _loading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: <Widget>[
+                    ///Categories
+                    Container(
+                      height: 64,
+                      child: ListView.builder(
+                          itemCount: categories.length,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => CategoryTile(
+                                imageUrl: categories[index].imageUrl,
+                                categoryName: categories[index].categoryName,
+                              )),
+                    ),
 
-                ///Categories
-                Container(
-                  height: 64,
-                  child: ListView.builder(
-                      itemCount: categories.length,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => CategoryTile(
-                        imageUrl: categories[index].imageUrl,
-                        categoryName: categories[index].categoryName,
-                      )
-                  ),
+                    ///Blogs
+                    Container(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: ListView.builder(
+                          itemCount: articles.length,
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemBuilder: (context, index) => BlogTile(
+                                imageUrl: articles[index].urlToImage,
+                                title: articles[index].title,
+                                desc: articles[index].description,
+                                url: articles[index].url,
+                              )),
+                    )
+                  ],
                 ),
-
-                ///Blogs
-                Container(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: ListView.builder(
-                    itemCount: articles.length,
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      itemBuilder: (context, index) => BlogTile(
-                        imageUrl: articles[index].urlToImage,
-                        title: articles[index].title,
-                        desc: articles[index].description,
-                        url: articles[index].url,
-                      )
-                  ),
-                )
-              ],
-          ),
-        ),
-      ),
+              ),
+            ),
     );
   }
 }
 
 class CategoryTile extends StatelessWidget {
-
   final String? imageUrl, categoryName;
 
   const CategoryTile({super.key, this.imageUrl, this.categoryName});
@@ -104,36 +106,41 @@ class CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) => CategoryNews(category: categoryName!.toLowerCase())
-        )
-        );
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    CategoryNews(category: categoryName!.toLowerCase())));
       },
       child: Container(
         margin: const EdgeInsets.only(right: 16),
-        child: Stack(
-            children: <Widget>[
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: Image.asset(
-                    imageUrl!, width: 116, height: 64, fit: BoxFit.cover,)
-              ),
-              Container(
-                alignment: Alignment.center,
+        child: Stack(children: <Widget>[
+          ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: Image.asset(
+                imageUrl!,
                 width: 116,
                 height: 64,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  color: Colors.black26,
-                ),
-                child: Text(categoryName!, style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500
-                ),),
-              )
-            ]),
+                fit: BoxFit.cover,
+              )),
+          Container(
+            alignment: Alignment.center,
+            width: 116,
+            height: 64,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              color: Colors.black26,
+            ),
+            child: Text(
+              categoryName!,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500),
+            ),
+          )
+        ]),
       ),
     );
   }
@@ -141,17 +148,22 @@ class CategoryTile extends StatelessWidget {
 
 class BlogTile extends StatelessWidget {
   final String? imageUrl, title, desc, url;
-  const BlogTile({super.key, required this.imageUrl, required this.title, required this.desc, required this.url});
+  const BlogTile(
+      {super.key,
+      required this.imageUrl,
+      required this.title,
+      required this.desc,
+      required this.url});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) => ArticleView(
-              blogUrl: url!,
-            )
-        )
-        );
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ArticleView(
+                      blogUrl: url!,
+                    )));
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),
@@ -161,7 +173,9 @@ class BlogTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
               child: Image.network(imageUrl!),
             ),
-            const SizedBox(height: 8,),
+            const SizedBox(
+              height: 8,
+            ),
             Text(
               title!,
               style: const TextStyle(
@@ -169,11 +183,12 @@ class BlogTile extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const SizedBox(height: 8,),
+            const SizedBox(
+              height: 8,
+            ),
             Text(
               desc!,
-              style: const TextStyle(
-              ),
+              style: const TextStyle(),
             )
           ],
         ),
@@ -181,4 +196,3 @@ class BlogTile extends StatelessWidget {
     );
   }
 }
-

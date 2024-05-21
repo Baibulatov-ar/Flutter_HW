@@ -7,5 +7,12 @@ class ArticleModel {
   DateTime? publishedAt;
   String? content;
 
-  ArticleModel({this.author, this.title, this.description, this.url, this.urlToImage, this.publishedAt, this.content});
+  ArticleModel(
+      {this.author,
+      this.title,
+      this.description,
+      this.url,
+      this.urlToImage,
+      this.publishedAt,
+      this.content});
 }
