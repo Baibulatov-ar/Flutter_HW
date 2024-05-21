@@ -1,10 +1,10 @@
-# flutter_1
+# MainNews
 
-A new Flutter project.
+Простое приложение-новостной агрегатор.
 
-## Getting Started
+# Описание
 
-This project is a starting point for a Flutter application.
+AnyNews - приложение для просмотра новостей, работающее на NewsAPI.
 
 A few resources to get you started if this is your first Flutter project:
 
