@@ -55,7 +55,7 @@ class _HomeState extends State<Home> {
         elevation: 0.0,
       ),
       body: _loading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : SingleChildScrollView(
@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
                 child: Column(
                   children: <Widget>[
                     ///Categories
-                    Container(
+                    SizedBox(
                       height: 64,
                       child: ListView.builder(
                           itemCount: categories.length,
