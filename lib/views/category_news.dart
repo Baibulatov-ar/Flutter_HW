@@ -59,28 +59,26 @@ class _CategoryNewsState extends State<CategoryNews> {
           elevation: 0.0,
         ),
         body: _loading
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : SingleChildScrollView(
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: ListView.builder(
-                            itemCount: articles.length,
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemBuilder: (context, index) => BlogTile(
-                                  imageUrl: articles[index].urlToImage,
-                                  title: articles[index].title,
-                                  desc: articles[index].description,
-                                  url: articles[index].url,
-                                )),
-                      )
-                    ],
-                  ),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: ListView.builder(
+                          itemCount: articles.length,
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemBuilder: (context, index) => BlogTile(
+                                imageUrl: articles[index].urlToImage,
+                                title: articles[index].title,
+                                desc: articles[index].description,
+                                url: articles[index].url,
+                              )),
+                    )
+                  ],
                 ),
               ),
       );
